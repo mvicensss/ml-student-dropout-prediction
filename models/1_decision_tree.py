@@ -15,7 +15,7 @@ y_train = train_df[target_col]
 X_test = test_df.drop(columns=[target_col])
 y_test = test_df[target_col]
 
-#start model
+# Start model
 clf_tree = DecisionTreeClassifier(
     criterion='gini',
     max_depth=5,
@@ -25,27 +25,25 @@ clf_tree = DecisionTreeClassifier(
     random_state=42,
 )
 
-#training
+# Training
 clf_tree.fit(X_train, y_train)
 
-#predict
+# Predict
 y_pred = clf_tree.predict(X_test)
 
-#eval of metrics
-print("--- METRICS ---")
+# Evaluation of metrics
 print(f"Global Accuracy: {accuracy_score(y_test, y_pred):.4f}\n")
 print("Classification Report (focus on 'Recall' of Dropout class):")
 print(classification_report(y_test, y_pred))
 
-#confusion matrix
-print("--- CONFUSION MATRIX ---")
+# Confusion matrix
 cm = confusion_matrix(y_test, y_pred, labels=clf_tree.classes_)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=clf_tree.classes_)
 disp.plot(cmap='Blues', values_format='d')
 plt.title("Confusion Matrix - Decision Tree")
 plt.show()
 
-#Tree visualisation
+# Tree visualisation
 plt.figure(figsize=(25, 15))
 plot_tree(
     clf_tree,
