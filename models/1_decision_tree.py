@@ -1,13 +1,16 @@
 import pandas as pd
-import matplotlib.pyplot as plt
+import sklearn as sk
 from sklearn.tree import DecisionTreeClassifier, plot_tree
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, ConfusionMatrixDisplay
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, accuracy_score, classification_report
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+
 
 target_col = 'Target'
 
 #Separate predicting variables (X) and objective variables (y)
-train_df = pd.read_csv('../data/processed/data_train.csv')
-test_df = pd.read_csv('../data/processed/data_test.csv')
+train_df = pd.read_csv('data/processed/data_train.csv')
+test_df = pd.read_csv('data/processed/data_test.csv')
 
 X_train = train_df.drop(columns=[target_col])
 y_train = train_df[target_col]
@@ -15,13 +18,20 @@ y_train = train_df[target_col]
 X_test = test_df.drop(columns=[target_col])
 y_test = test_df[target_col]
 
-# Start model
+#start model
+custom_weights={
+    'Dropout': 3.0,
+    'Enrolled': 1.5,
+    'Graduate': 1.0
+}
+
 clf_tree = DecisionTreeClassifier(
     criterion='gini',
-    max_depth=5,
-    min_samples_split=20,
-    min_samples_leaf=10,
-    class_weight='balanced',
+    max_depth=10,
+    min_samples_split=10,
+    min_samples_leaf=5,
+    #class_weight={'Dropout': 4.0, 'Enrolled': 1.0, 'Graduate': 1.0},
+    class_weight=custom_weights,
     random_state=42,
 )
 
@@ -43,8 +53,8 @@ disp.plot(cmap='Blues', values_format='d')
 plt.title("Confusion Matrix - Decision Tree")
 plt.show()
 
-# Tree visualisation
-plt.figure(figsize=(25, 15))
+#Tree visualisation
+plt.figure(figsize=(20, 10))
 plot_tree(
     clf_tree,
     feature_names=X_train.columns,
@@ -52,7 +62,7 @@ plot_tree(
     filled=True,
     rounded=True,
     fontsize=10,
-    max_depth=5,
+    max_depth=3,
 )
 plt.title("Decision Tree")
 plt.show()
