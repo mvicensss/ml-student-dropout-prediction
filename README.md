@@ -1,5 +1,7 @@
 # University Student Dropout Prediction: Early Warning System using Machine Learning
 
+*This project was developed as the final project for the subject "Automatic Learning" at "CEU San Pablo University".*
+
 ## Project Overview
 This project develops a predictive classification system designed to identify university students at high risk of dropping out. By anticipating student attrition early on, educational institutions can intervene proactively through tutoring or financial aid, improving retention rates and mitigating the economic impact associated with student loss.
 
@@ -30,7 +32,10 @@ The project follows a comprehensive Data Science and Engineering lifecycle, stru
 
 3. **Predictive Modeling:**
    * **Baseline Model:** Logistic Regression (used as a benchmark due to its high interpretability).
-   * **Complex Models:** K-Nearest Neighbors (KNN), Support Vector Machines (SVM with non-linear kernel), Decision Trees, and Artificial Neural Networks.
+   * **Rule-Based Model:** Decision Tree (optimized via Information Gain).
+   * **Distance-Based Model:** K-Nearest Neighbors (KNN).
+   * **Margin-Based Model:** Support Vector Machines (SVM).
+   * **Probabilistic Model:** Bernoulli Naïve Bayes.
 
 4. **Business Evaluation and Cost Analysis:**
    * Prioritization of the **Recall** metric for the "Dropout" class to minimize False Negatives (students who drop out without being flagged by the system).
@@ -40,14 +45,16 @@ The project follows a comprehensive Data Science and Engineering lifecycle, stru
 
 ```text
 ├── data/
-│   ├── raw/                      # Original, unprocessed dataset and processing notebooks
+│   ├── raw/                      # Original, unprocessed dataset and exploratory notebooks
 │   └── processed/                # Transformed dataset (.csv) ready for training
-├── model_scripts/                # Individual scripts for each model
+├── models/                       # Executable Python scripts for ML classifiers
+├── notebooks/                    # Main data pipeline notebooks (cleaning and preprocessing)
+├── src/                          # Helper and utility scripts
 ├── docs/                         # Additional documentation and final report
 ├── .gitignore                    # Files and directories excluded from version control
 ├── requirements.txt              # Project dependencies
 └── README.md                     # Project description
-
+   ```
 ## Technologies Used
 * **Language:** Python 3.x
 * **Data Manipulation:** Pandas, NumPy
